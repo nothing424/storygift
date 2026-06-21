@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-parchment text-ink dark:bg-ink dark:text-parchment font-body antialiased transition-colors duration-300;
+}
+
+/* Visible keyboard focus, respected everywhere */
+:focus-visible {
+  outline: 2px solid theme("colors.rosegold.DEFAULT");
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Book spine shadow used on story/cover cards */
+.book-cover {
+  @apply relative rounded-book shadow-book dark:shadow-book-dark overflow-hidden;
+}
+.book-cover::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  @apply shadow-spine rounded-book;
+}
+
+/* Page-fold divider used in hero + reader */
+.fold-divider {
+  position: relative;
+}
+.fold-divider::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(28, 24, 16, 0.12),
+    transparent
+  );
+}
+.dark .fold-divider::after {
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(247, 241, 230, 0.12),
+    transparent
+  );
+}
+
+/* Custom scrollbar, kept subtle */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: theme("colors.rosegold.DEFAULT" / 40%);
+  border-radius: 8px;
+}
+
+/* Reading progress bar */
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    theme("colors.rosegold.DEFAULT"),
+    theme("colors.gold.DEFAULT")
+  );
+  z-index: 50;
+  transition: width 0.1s linear;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
